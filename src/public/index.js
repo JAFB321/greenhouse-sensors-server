@@ -3,8 +3,8 @@ var socket = io.connect('http://localhost:3000', { forceNew: true });
 socket.on('sensor', function (data) {
 	// data:
 	//	[
-	// 		{ id: 'EXAMPLE', values: { value: 312, date: 'date' } },
-	//  	{ id: 'EXAMPLE2', values: { value: 324, date: 'date' } }
+	// 		{ id: 'EXAMPLE', value: { value: 312, date: 'date' } },
+	//  	{ id: 'EXAMPLE2', value: { value: 324, date: 'date' } }
 	// ];
 	// (check src/database.js)
 
