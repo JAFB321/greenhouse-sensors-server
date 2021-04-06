@@ -10,4 +10,10 @@
 
 // httpServer.listen(3000, () => console.log('Http server running on port 3000'));
 
-require('./sensorServer');
+const { sensorsTCP } = require('./sensorsTCP');
+
+const tcp = new sensorsTCP({ HOST: 'localhost', PORT: 4000 });
+
+tcp.init(({ sensorID, value }) => {
+	console.log(`${sensorID}: ${value} \n`);
+});
