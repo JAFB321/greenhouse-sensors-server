@@ -26,9 +26,6 @@ setInterval(() => {
 
 // Sensors tcp listen
 tcpServer.onSensorValue((sensorInfo) => {
-	const { value, sensorID } = sensorInfo;
-	console.log(`${sensorID}: ${value}`);
-
 	registerSensorValue(sensorInfo);
 });
 
