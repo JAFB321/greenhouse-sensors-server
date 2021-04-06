@@ -2,6 +2,7 @@ const http = require('http');
 const express = require('express');
 const SocketIO = require('socket.io');
 const sensorsTCP = require('./sensorsTCP');
+const { getSensorsLastValues, registerSensorValue } = require('./database');
 
 const app = new express();
 const tcpServer = new sensorsTCP({ HOST: 'localhost', PORT: 4000 });
@@ -17,12 +18,18 @@ webSockets.on('connection', function (socket) {
 	});
 });
 
+// Auto send sensor info to clients
+setInterval(() => {
+	const lastSensors = getSensorsLastValues();
+	webSockets.emit('sensor', JSON.stringify(lastSensors));
+}, 1000);
+
 // Sensors tcp listen
 tcpServer.onSensorValue((sensorInfo) => {
-	console.log(sensorInfo);
-
 	const { value, sensorID } = sensorInfo;
-	webSockets.emit('message', `${sensorID}: ${value}`);
+	console.log(`${sensorID}: ${value}`);
+
+	registerSensorValue(sensorInfo);
 });
 
 // Serve public assets
