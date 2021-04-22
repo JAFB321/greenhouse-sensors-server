@@ -1,8 +1,8 @@
 const http = require('http');
 const express = require('express');
 const SocketIO = require('socket.io');
-const sensorsTCP = require('./sensorsTCP');
-const { getSensorsLastValues, registerSensorValue } = require('./database');
+const sensorsTCP = require('./gateway/sensorsTCP');
+const { getSensorsLastValues, registerSensorValue } = require('./database/database');
 
 const app = new express();
 const tcpServer = new sensorsTCP({ HOST: 'localhost', PORT: 4000 });
@@ -15,6 +15,10 @@ webSockets.on('connection', function (socket) {
 
 	socket.on('disconnect', function () {
 		console.log('A user disconnected');
+	});
+
+	socket.on('error', (error) => {
+		console.log(error);
 	});
 });
 
