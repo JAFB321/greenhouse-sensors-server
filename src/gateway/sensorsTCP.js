@@ -16,6 +16,7 @@ class sensorsTCP {
 
 			console.log(`Client connection from: ${socket.remoteAddress}`);
 			socket.setEncoding('utf8');
+			socket.setNoDelay(true);
 
 			socket.on('close', () => {
 				// Gateway connection closed
@@ -38,24 +39,30 @@ class sensorsTCP {
 		this.sockets.forEach((socket) => {
 			socket.on('data', (data) => {
 				// Gateway sensor info recieved
+				console.log(data);
 				try {
 					const sensor = JSON.parse(data);
-					if (sensor.sensorID && sensor.value) {
+					if (sensor.sensorID !== undefined && sensor.value !== undefined) {
 						listener(sensor);
 					}
-				} catch (error) {}
+				} catch (error) {
+					console.log(error);
+				}
 			});
 		});
 
 		this.serverTCP.on('connection', (socket) => {
 			socket.on('data', (data) => {
+				console.log(data);
 				// Gateway sensor info recieved
 				try {
 					const sensor = JSON.parse(data);
-					if (sensor.sensorID && sensor.value) {
+					if (sensor.sensorID !== undefined && sensor.value !== undefined) {
 						listener(sensor);
 					}
-				} catch (error) {}
+				} catch (error) {
+					console.log(error);
+				}
 			});
 		});
 	}
