@@ -1,0 +1,46 @@
+.moinitor__main {
+  background-color: $primary;
+  margin: 0;
+  padding-top: 30px;
+  height: 100vh;
+  width: 100vw;
+}
+
+.monitor__box-container {
+  margin: 0 auto;
+  width: 100%;
+}
+
+.sensor_card-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 30px;
+}
+
+.sensor_card {
+  background-color: lighten($color: $primary, $amount: 25);
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  row-gap: 20px;
+  //   width: 300px;
+  height: 200px;
+}
+
+.sensor_card-logo {
+  width: 50px;
+  margin: 0 auto;
+}
+
+.sensor_card-title {
+  font-size: 30px;
+}
+
+.sensor_card-info {
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.sensor_card-info_value {
+  font-size: 18px;
+}

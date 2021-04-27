@@ -1,0 +1,69 @@
+* {
+  font-family: Helvetica, Arial, sans-serif;
+  margin: 0;
+}
+
+html,
+body {
+  height: 100vh;
+  width: 100vw;
+}
+
+main {
+  width: 100%;
+}
+
+.mt-1 {
+  margin-top: 5px;
+}
+
+.mt-5 {
+  margin-top: 20px;
+}
+
+.mb-1 {
+  margin-bottom: 5px;
+}
+
+.mb-5 {
+  margin-bottom: 20px;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.align-center {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.title_primary {
+  color: darken($color: $primary, $amount: 100);
+  margin: 20px 0;
+  font-size: 35px;
+}
+
+.logo {
+  width: 100px;
+  display: block;
+}
+
+.container {
+  margin: 0 auto;
+  //   padding: 10px 0;
+  max-width: 1200px;
+  width: 90%;
+}
+
+.card {
+  background-color: white;
+  box-shadow: 0px 3px $dark-grey;
+  border-radius: 3px;
+  margin-bottom: 10px;
+  padding: 10px;
+}
