@@ -24,4 +24,13 @@ module.exports = {
 			},
 		],
 	},
+	devServer: {
+		port: 8080,
+		open: true,
+		historyApiFallback: true,
+		hot: true,
+		proxy: {
+			'/': 'http://localhost:3000',
+		},
+	},
 };
