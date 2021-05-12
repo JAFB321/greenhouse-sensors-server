@@ -1,0 +1,70 @@
+const Service = require('./Service');
+
+class SensorService extends Service {
+	constructor(model) {
+		super(model);
+	}
+
+	async getAll(query = {}, skip, limit) {
+		skip = skip ? Number(skip) : 0;
+		limit = limit ? Number(limit) : 10;
+
+		if (query._id) {
+			try {
+				query._id = new mongoose.mongo.ObjectId(query._id);
+			} catch (error) {
+				console.log('not able to generate mongoose id with content', query._id);
+			}
+		}
+
+		try {
+			let items = await this.model.find(query, '-SensorReads').skip(skip).limit(limit);
+			let total = await this.model.count();
+
+			return {
+				error: false,
+				statusCode: 200,
+				data: items,
+				total,
+			};
+		} catch (error) {
+			return {
+				error: true,
+				statusCode: 500,
+				error,
+			};
+		}
+	}
+
+	async registerSensorRead(name, sensorRead) {
+		try {
+			let item = await this.model.find({ name });
+
+			if (item && item.length && item[0]._id) {
+				const [sensor] = item;
+				sensor.SensorReads.push(sensorRead);
+				sensor.lastValue = sensorRead.value;
+
+				console.log(sensor);
+				const done = await sensor.save();
+				console.log(done);
+			}
+
+			if (item)
+				return {
+					error: false,
+					item,
+				};
+		} catch (error) {
+			console.log('error', error);
+			return {
+				error: true,
+				statusCode: 500,
+				message: error.errmsg || 'Not able to create item',
+				errors: error.errors,
+			};
+		}
+	}
+}
+
+module.exports = SensorService;
