@@ -29,8 +29,6 @@ app.use(express.json());
 app.use(cors());
 // Api Routes
 app.use('/api', apiRoutes);
-// Serve public assets
-app.use(express.static(__dirname + '/public'));
 
 // ------ Websockets ------------------------
 const webSockets = SocketIO(httpServer, {
