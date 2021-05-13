@@ -2,9 +2,8 @@ const net = require('net');
 
 // TCP/IP Server to communicate with the Gateway
 class sensorsTCP {
-	constructor({ PORT, HOST }) {
+	constructor({ PORT }) {
 		this.PORT = PORT;
-		this.HOST = HOST;
 		this.serverTCP = net.createServer();
 		this.sockets = [];
 	}
@@ -30,9 +29,7 @@ class sensorsTCP {
 			});
 		});
 
-		this.serverTCP.listen(this.PORT, this.HOST, () =>
-			console.log('TCP/IP server running on port 4000')
-		);
+		this.serverTCP.listen(this.PORT, () => console.log('TCP/IP server running on port 4000'));
 	}
 
 	onSensorValue(listener = ({ sensorID, value }) => {}) {
@@ -46,7 +43,7 @@ class sensorsTCP {
 						listener(sensor);
 					}
 				} catch (error) {
-					console.log(error);
+					// console.log(error);
 				}
 			});
 		});
