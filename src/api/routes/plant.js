@@ -11,6 +11,7 @@ router.delete(
 	PlantController.deletePlantParameter
 );
 
+router.get('/plant/:id', tokenCheck, PlantController.get);
 router.get('/plant', tokenCheck, PlantController.getAll);
 router.post('/plant', tokenCheck, PlantController.insert);
 router.put('/plant/:id', tokenCheck, PlantController.update);

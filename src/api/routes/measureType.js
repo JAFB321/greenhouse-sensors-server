@@ -4,6 +4,7 @@ const router = Router();
 
 const MeasureTypeController = require('../controllers/MeasureTypeController');
 
+router.get('/measureType/:id', tokenCheck, MeasureTypeController.get);
 router.get('/measureType', tokenCheck, MeasureTypeController.getAll);
 router.post('/measureType', tokenCheck, MeasureTypeController.insert);
 router.put('/measureType/:id', tokenCheck, MeasureTypeController.update);

@@ -4,6 +4,7 @@ const router = Router();
 
 const SensorController = require('../controllers/SensorController');
 
+router.get('/sensor/:id', tokenCheck, SensorController.get);
 router.get('/sensor', tokenCheck, SensorController.getAll);
 router.post('/sensor', tokenCheck, SensorController.insert);
 router.put('/sensor/:id', tokenCheck, SensorController.update);

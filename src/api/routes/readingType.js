@@ -4,6 +4,7 @@ const router = Router();
 
 const ReadingTypeController = require('../controllers/ReadingTypeController');
 
+router.get('/readingType/:id', tokenCheck, ReadingTypeController.get);
 router.get('/readingType', tokenCheck, ReadingTypeController.getAll);
 router.post('/readingType', tokenCheck, ReadingTypeController.insert);
 router.put('/readingType/:id', tokenCheck, ReadingTypeController.update);
