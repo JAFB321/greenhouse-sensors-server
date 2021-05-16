@@ -3,10 +3,10 @@ const http = require('http');
 const express = require('express');
 const SocketIO = require('socket.io');
 const cors = require('cors');
-const sensorsTCP = require('./gateway/sensorsTCP');
+const GatewayTCP = require('./gateway/GatewayTCP');
 const ConnectionDB = require('./database/Connection');
 const apiRoutes = require('./api/routes/index');
-const SocketsController = require('./sockets/socketsController');
+const SocketsController = require('./api/sockets/socketsController');
 
 // Mongo Database
 const { DB_URL, DB_NAME, DB_USER, DB_PASS } = process.env;
@@ -40,15 +40,15 @@ const webSockets = SocketIO(httpServer, {
 const socketsController = new SocketsController(webSockets);
 
 // ------ TCP Server ------------------------
-const tcpServer = new sensorsTCP({ PORT: process.env.TCP_PORT || 4000 });
-const gatewayController = require('./gateway/gatewayController');
+const gatewayTCP = new GatewayTCP({ PORT: process.env.TCP_PORT || 4000 });
+const sensorsController = require('./sensorMonitoring/sensorsController');
 
 // Sensors tcp listen
-tcpServer.onSensorValue((sensorInfo) => {
-	gatewayController.registerSensorRead(sensorInfo);
+gatewayTCP.onSensorValue((sensorInfo) => {
+	sensorsController.registerSensorRead(sensorInfo);
 });
 
 // Init TCP and http server
 const port = process.env.PORT || 8080;
 httpServer.listen(port, () => console.log(`Http server running on port ${port}`));
-tcpServer.init();
+gatewayTCP.init();
