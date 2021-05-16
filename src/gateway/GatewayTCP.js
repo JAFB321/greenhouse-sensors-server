@@ -1,7 +1,7 @@
 const net = require('net');
 
 // TCP/IP Server to communicate with the Gateway
-class sensorsTCP {
+class GatewayTCP {
 	constructor({ PORT }) {
 		this.PORT = PORT;
 		this.serverTCP = net.createServer();
@@ -65,4 +65,4 @@ class sensorsTCP {
 	}
 }
 
-module.exports = sensorsTCP;
+module.exports = GatewayTCP;

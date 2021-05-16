@@ -3,7 +3,7 @@ const Sensor = require('../api/models/Sensor');
 
 const sensorService = new SensorService(Sensor.getInstance());
 
-class gatewayController {
+class sensorsController {
 	constructor() {}
 
 	async registerSensorRead(sensorData) {
@@ -19,4 +19,4 @@ class gatewayController {
 	}
 }
 
-module.exports = new gatewayController();
+module.exports = new sensorsController();
