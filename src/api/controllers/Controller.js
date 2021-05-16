@@ -1,10 +1,16 @@
 class Controller {
 	constructor(service) {
 		this.service = service;
+		this.get = this.get.bind(this);
 		this.getAll = this.getAll.bind(this);
 		this.insert = this.insert.bind(this);
 		this.update = this.update.bind(this);
 		this.delete = this.delete.bind(this);
+	}
+
+	async get(req, res) {
+		const { id } = req.params;
+		return res.status(200).send(await this.service.get(id));
 	}
 
 	async getAll(req, res) {

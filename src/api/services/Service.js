@@ -3,11 +3,30 @@ const moongose = require('mongoose');
 class Service {
 	constructor(model) {
 		this.model = model;
+		this.get = this.get.bind(this);
 		this.getAll = this.getAll.bind(this);
 		this.insert = this.insert.bind(this);
 		this.insert = this.insert.bind(this);
 		this.update = this.update.bind(this);
 		this.delete = this.delete.bind(this);
+	}
+
+	async get(id) {
+		try {
+			let item = (await this.model.find({ _id: id }))[0];
+
+			return {
+				error: false,
+				statusCode: 200,
+				data: item,
+			};
+		} catch (error) {
+			return {
+				error: true,
+				statusCode: 500,
+				error,
+			};
+		}
 	}
 
 	async getAll(query = {}, skip, limit) {
