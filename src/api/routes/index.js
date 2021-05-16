@@ -7,5 +7,6 @@ router.use('/', require('./readingType'));
 router.use('/', require('./measureType'));
 router.use('/', require('./sensor'));
 router.use('/', require('./sensor'));
+router.use('/', require('./zone'));
 
 module.exports = router;
