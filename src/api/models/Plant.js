@@ -13,6 +13,9 @@ class Plant {
 			PlantParameters: {
 				type: [PlantParameters.schema],
 			},
+			imageURL: {
+				type: String,
+			},
 		});
 
 		mongoose.model('Plant', this.schema);

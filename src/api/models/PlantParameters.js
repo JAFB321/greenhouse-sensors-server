@@ -1,12 +1,20 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
+const ReadingType = require('./ReadingType');
+
 class PlantParameters {
 	constructor() {
 		this.schema = new Schema({
-			type: {
-				type: String,
+			readingType: {
+				type: ReadingType.schema,
 				required: true,
+			},
+			minValue: {
+				type: Number,
+			},
+			maxValue: {
+				type: Number,
 			},
 		});
 
