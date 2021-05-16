@@ -13,7 +13,8 @@ const tokenCheck = (req, res, next) => {
 
 		res.status(401).json({ error: true, statusCode: 401 });
 	} catch (error) {
-		return res.status(500).json({ error: true, statusCode: 500 });
+		console.log(error);
+		return res.status(401).json({ error: true, statusCode: 401 });
 	}
 };
 
