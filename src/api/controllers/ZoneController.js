@@ -1,6 +1,6 @@
 const Controller = require('./Controller');
-const ZoneService = require('../services/ZoneService');
-const Zone = require('../models/Zone');
+const ZoneService = require('../../database/services/ZoneService');
+const Zone = require('../../database/models/Zone');
 
 const zoneService = new ZoneService(Zone.getInstance());
 

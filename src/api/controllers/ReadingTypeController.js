@@ -1,6 +1,6 @@
 const Controller = require('./Controller');
-const ReadingTypeService = require('../services/ReadingTypeService');
-const ReadingType = require('../models/ReadingType');
+const ReadingTypeService = require('../../database/services/ReadingTypeService');
+const ReadingType = require('../../database/models/ReadingType');
 
 const readingTypeService = new ReadingTypeService(ReadingType.getInstance());
 

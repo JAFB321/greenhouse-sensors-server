@@ -1,5 +1,5 @@
-const SensorService = require('../api/services/SensorService');
-const Sensor = require('../api/models/Sensor');
+const SensorService = require('../database/services/SensorService');
+const Sensor = require('../database/models/Sensor');
 
 const sensorService = new SensorService(Sensor.getInstance());
 

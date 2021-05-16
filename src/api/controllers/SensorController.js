@@ -1,6 +1,6 @@
 const Controller = require('./Controller');
-const SensorService = require('../services/SensorService');
-const Sensor = require('../models/Sensor');
+const SensorService = require('../../database/services/SensorService');
+const Sensor = require('../../database/models/Sensor');
 
 const sensorService = new SensorService(Sensor.getInstance());
 

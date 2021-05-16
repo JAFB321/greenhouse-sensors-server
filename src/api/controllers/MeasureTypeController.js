@@ -1,6 +1,6 @@
 const Controller = require('./Controller');
-const MeasureTypeService = require('../services/MeasureTypeService');
-const MeasureType = require('../models/MeasureType');
+const MeasureTypeService = require('../../database/services/MeasureTypeService');
+const MeasureType = require('../../database/models/MeasureType');
 
 const measureTypeService = new MeasureTypeService(MeasureType.getInstance());
 

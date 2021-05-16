@@ -1,6 +1,6 @@
 const Controller = require('./Controller');
-const UserService = require('../services/UserService');
-const User = require('../models/User');
+const UserService = require('../../database/services/UserService');
+const User = require('../../database/models/User');
 
 const userService = new UserService(User.getInstance());
 

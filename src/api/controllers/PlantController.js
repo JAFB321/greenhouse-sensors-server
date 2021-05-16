@@ -1,6 +1,6 @@
 const Controller = require('./Controller');
-const PlantService = require('../services/PlantService');
-const Plant = require('../models/Plant');
+const PlantService = require('../../database/services/PlantService');
+const Plant = require('../../database/models/Plant');
 
 const plantService = new PlantService(Plant.getInstance());
 
