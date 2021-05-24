@@ -11,6 +11,8 @@ class Service {
 		this.delete = this.delete.bind(this);
 	}
 
+	async updateDependencies() {}
+
 	async get(id) {
 		try {
 			let item = (await this.model.find({ _id: id }))[0];
@@ -82,12 +84,14 @@ class Service {
 	async update(id, data) {
 		try {
 			let item = await this.model.findByIdAndUpdate(id, data, { new: true });
+			this.updateDependencies(id, data);
 			return {
 				error: false,
 				statusCode: 202,
 				item,
 			};
 		} catch (error) {
+			console.log(error);
 			return {
 				error: true,
 				statusCode: 500,

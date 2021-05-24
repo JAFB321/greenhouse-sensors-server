@@ -17,6 +17,9 @@ class Zone {
 			plants: {
 				type: [Plant.schema],
 			},
+			warningsHistory: {
+				type: [],
+			},
 		});
 
 		mongoose.model('Zone', this.schema);

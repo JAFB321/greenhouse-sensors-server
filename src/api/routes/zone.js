@@ -10,6 +10,9 @@ router.delete('/zone/:zoneId/sensors/:sensorId', tokenCheck, ZoneController.dele
 router.post('/zone/:zoneId/plants', tokenCheck, ZoneController.addPlant);
 router.delete('/zone/:zoneId/plants/:plantId', tokenCheck, ZoneController.deletePlant);
 
+router.get('/zone/:id/health', tokenCheck, ZoneController.getZoneHealth);
+router.get('/zone/:id/warnings', tokenCheck, ZoneController.getWarnings);
+
 router.get('/zone/:id', tokenCheck, ZoneController.get);
 router.get('/zone', tokenCheck, ZoneController.getAll);
 router.post('/zone', tokenCheck, ZoneController.insert);

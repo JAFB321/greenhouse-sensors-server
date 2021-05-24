@@ -1,8 +1,10 @@
 const Service = require('./Service');
+const ZoneModel = require('../models/Zone');
 
 class SensorService extends Service {
 	constructor(model) {
 		super(model);
+		this.ZoneModel = ZoneModel.getInstance();
 	}
 
 	async getAll(query = {}, skip, limit) {
@@ -31,7 +33,6 @@ class SensorService extends Service {
 			return {
 				error: true,
 				statusCode: 500,
-				error,
 			};
 		}
 	}
@@ -45,9 +46,20 @@ class SensorService extends Service {
 				sensor.SensorReads.push(sensorRead);
 				sensor.lastValue = sensorRead.value;
 
-				console.log(sensor);
 				const done = await sensor.save();
-				console.log(done);
+
+				// Update dependencies
+				return await this.ZoneModel.updateMany(
+					{
+						'sensors._id': item[0]._id,
+					},
+					{
+						$set: { 'sensors.$.lastValue': sensorRead.value },
+					},
+					{
+						multi: true,
+					}
+				);
 			}
 
 			if (item)

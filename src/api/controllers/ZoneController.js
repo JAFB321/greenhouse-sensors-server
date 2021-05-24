@@ -9,6 +9,32 @@ class ZoneController extends Controller {
 		super(service);
 	}
 
+	getWarnings = async (req, res) => {
+		const { id } = req.params;
+
+		const response = await this.service.getWarnings(id);
+		return res.status(response.statusCode).send(response);
+	};
+
+	getAll = async (req, res) => {
+		const { populated } = req.query;
+		let response;
+
+		if (populated) {
+			response = await this.service.getAllPopulated();
+		} else {
+			response = await this.service.getAll(req.query);
+		}
+		return res.status(response.statusCode).send(response);
+	};
+
+	getZoneHealth = async (req, res) => {
+		const { id } = req.params;
+
+		const response = await this.service.getZoneHealth(id);
+		return res.status(response.statusCode).send(response);
+	};
+
 	addSensor = async (req, res) => {
 		const { sensorId } = req.body;
 		const { zoneId } = req.params;

@@ -19,7 +19,6 @@ class UserService extends Service {
 	async auth({ username, password } = {}, secretKey) {
 		try {
 			const user = (await this.model.find({ username }))[0];
-			console.log(user);
 
 			if (user) {
 				if (await matchPassword(user.password, password)) {
@@ -48,12 +47,6 @@ class UserService extends Service {
 							token,
 						},
 					};
-				} else {
-					return {
-						error: true,
-						statusCode: 401,
-						data: {},
-					};
 				}
 			}
 		} catch (error) {
@@ -64,14 +57,20 @@ class UserService extends Service {
 				error,
 			};
 		}
+
+		return {
+			error: true,
+			statusCode: 401,
+			data: {},
+		};
 	}
 
 	async register(data) {
 		const { password } = data;
 
-		data.password = await encryptPassword(password);
-
 		try {
+			data.password = await encryptPassword(password);
+
 			let item = await this.model.create(data);
 			if (item)
 				return {
@@ -88,6 +87,12 @@ class UserService extends Service {
 				errors: error.errors,
 			};
 		}
+
+		return {
+			error: true,
+			statusCode: 401,
+			data: {},
+		};
 	}
 }
 

@@ -3,10 +3,10 @@ const http = require('http');
 const express = require('express');
 const SocketIO = require('socket.io');
 const cors = require('cors');
-const GatewayTCP = require('./sensorMonitoring/GatewayTCP');
 const ConnectionDB = require('./database/Connection');
 const apiRoutes = require('./api/routes/index');
 const SocketsController = require('./api/sockets/socketsController');
+const SensorsController = require('./sensorMonitoring/SensorsController');
 
 // Mongo Database
 const { DB_URL, DB_NAME, DB_USER, DB_PASS } = process.env;
@@ -26,7 +26,17 @@ const httpServer = http.createServer(app);
 app.set('JWT_SECRET_KEY', process.env.JWT_SECRET_KEY || 'TEAM4');
 // Middlewares
 app.use(express.json());
-app.use(cors());
+
+app.options('*', cors());
+app.use(
+	cors({
+		credentials: true,
+		preflightContinue: true,
+		methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+		origin: '*',
+	})
+);
+
 // Api Routes
 app.use('/api', apiRoutes);
 
@@ -39,16 +49,22 @@ const webSockets = SocketIO(httpServer, {
 
 const socketsController = new SocketsController(webSockets);
 
-// ------ TCP Server ------------------------
-const gatewayTCP = new GatewayTCP({ PORT: process.env.TCP_PORT || 4000 });
-const sensorsController = require('./sensorMonitoring/sensorsController');
+// ------ Sensor Monitoring ------
+SensorsController.init();
 
-// Sensors tcp listen
-gatewayTCP.onSensorValue((sensorInfo) => {
-	sensorsController.registerSensorRead(sensorInfo);
-});
+const { MailSender } = require('./notificationManager/mailSender');
+const mail = new MailSender({ user: 'juanguzmansalazar@gmail.com', pass: 'sjyzsuhcaeeblkwz' });
 
-// Init TCP and http server
+(async () => {
+	await mail.init();
+	await mail.sendEmail({
+		from: 'juanguzmansalazar@gmail.com',
+		to: 'jafb321@gmail.com',
+		subject: 'fuck you',
+		html: '<p></p>',
+	});
+})();
+
+// Init Http Server
 const port = process.env.PORT || 8080;
 httpServer.listen(port, () => console.log(`Http server running on port ${port}`));
-gatewayTCP.init();

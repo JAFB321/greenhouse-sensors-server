@@ -1,28 +1,15 @@
-const SensorService = require('../../database/services/SensorService');
-const Sensor = require('../../database/models/Sensor');
+const { SensorMonitorSockets } = require('./handlers/SensorMonitorSockets');
 
-const sensorService = new SensorService(Sensor.getInstance());
+const sensorsMonitor = new SensorMonitorSockets();
 
 class SocketsController {
 	constructor(socketsIO) {
+		// SocketsIO
 		this.socketsIO = socketsIO;
 
-		socketsIO.on('connection', function (socket) {
-			console.log('A user connected');
-
-			socket.on('disconnect', function () {
-				console.log('A user disconnected');
-			});
-
-			socket.on('error', (error) => {
-				console.log(error);
-			});
+		socketsIO.on('connection', async (socket) => {
+			sensorsMonitor.handleSocket(socket);
 		});
-
-		// Auto send sensor info to clients
-		setInterval(() => {
-			this.sendSensorsInfo();
-		}, 1000);
 	}
 
 	async sendSensorsInfo() {

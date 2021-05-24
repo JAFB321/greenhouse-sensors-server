@@ -17,6 +17,9 @@ class User {
 				type: String,
 				required: true,
 			},
+			email: {
+				type: String,
+			},
 		});
 
 		mongoose.model('User', this.schema);
