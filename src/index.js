@@ -55,16 +55,6 @@ SensorsController.init();
 const { MailSender } = require('./notificationManager/mailSender');
 const mail = new MailSender({ user: 'juanguzmansalazar@gmail.com', pass: 'sjyzsuhcaeeblkwz' });
 
-(async () => {
-	await mail.init();
-	await mail.sendEmail({
-		from: 'juanguzmansalazar@gmail.com',
-		to: 'jafb321@gmail.com',
-		subject: 'fuck you',
-		html: '<p></p>',
-	});
-})();
-
 // Init Http Server
 const port = process.env.PORT || 8080;
 httpServer.listen(port, () => console.log(`Http server running on port ${port}`));
